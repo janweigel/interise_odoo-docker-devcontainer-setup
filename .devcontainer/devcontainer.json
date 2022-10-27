@@ -30,7 +30,6 @@
 	"overrideCommand": false,
 	
 	"extensions": [
-		"ms-python.python",
 		"ms-azuretools.vscode-docker",
 		"visualstudioexptteam.vscodeintellicode",
 		"njpwerner.autodocstring",
@@ -38,6 +37,6 @@
 		"mtxr.sqltools",
 		"mtxr.sqltools-driver-pg",
 		"jigar-patel.odoosnippets",
-		"esbenp.prettier-vscode"
+		"ms-python.python"
 	]
 }

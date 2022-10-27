@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"dotjoshjohnson.xml",
+		"syler.sass-indented",
+		"ecmel.vscode-html-css",
+		"oderwat.indent-rainbow",
+		"yzhang.markdown-all-in-one",
+		"chrmarti.regex",
+	]
+}
