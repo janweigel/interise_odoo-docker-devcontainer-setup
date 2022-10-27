@@ -37,6 +37,7 @@
 		"kevinrose.vsc-python-indent",
 		"mtxr.sqltools",
 		"mtxr.sqltools-driver-pg",
-		"jigar-patel.odoosnippets"
+		"jigar-patel.odoosnippets",
+		"esbenp.prettier-vscode"
 	]
 }

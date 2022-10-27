@@ -137,8 +137,8 @@ RUN pip3 install --prefix=/usr/local --no-cache-dir --upgrade --requirement http
 RUN mkdir -p /odoo
 
 # Copy entrypoint script and Odoo configuration file
-COPY ./resources/entrypoint.sh /odoo/
-RUN chmod +x /odoo/entrypoint.sh
+COPY ./startup/entrypoint.sh /odoo/startup
+RUN chmod +x /odoo/startup/entrypoint.sh
 COPY ./resources/odoo.conf /odoo
 
 # Create odoo User and set permissions and Mount /odoo/dist to allow restoring filestore, /odoo/addons-custom and /odoo/addons-extra for users addons
@@ -170,11 +170,11 @@ RUN set -x; \
 # Set the default config file
 ENV ODOO_RC /odoo/odoo.conf
 
-COPY ./resources/wait-for-psql.py /odoo/wait-for-psql.py
-RUN chmod +x /odoo/wait-for-psql.py
+COPY ./startup/wait-for-psql.py /odoo/startup/wait-for-psql.py
+RUN chmod +x /odoo/startup/wait-for-psql.py
 
 USER ${ODOO_USER}
 
-ENTRYPOINT ["/odoo/entrypoint.sh"]
+ENTRYPOINT ["/odoo/startup/entrypoint.sh"]
 
 CMD ["/odoo/dist/odoo"]
