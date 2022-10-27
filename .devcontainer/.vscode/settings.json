@@ -1,0 +1,75 @@
+{
+	"git.autoRepositoryDetection": "subFolders",
+	"git.repositoryScanIgnoredFolders": [
+		"node_modules",
+		"dist"
+	],
+	"git.ignoredRepositories": [
+		"dist"
+	],
+	"git.confirmSync": true,
+	"git.repositoryScanMaxDepth": 2,
+
+	"sqltools.connections": [
+		{
+			"previewLimit": 200,
+			"server": "db",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "odoo-16-postgres",
+			"database": "odoo16db",
+			"username": "odoo",
+			"password": "odoo"
+		}
+	],
+	
+	"python.autoComplete.extraPaths": [
+		"/odoo/dist",
+		"/odoo/dist/addons",
+		"/odoo/dist/odoo/addons",
+		"/odoo/addons-extra",
+		"/odoo/addons-custom"
+	],
+	"python.linting.enabled": true,
+	"python.linting.pylintEnabled": true,
+	"python.linting.ignorePatterns": [
+		"/odoo/dist/**"
+	],
+	"python.linting.pylintArgs": [
+		"--rcfile",
+		"${workspaceFolder}/.vscode/oca_pylint.cfg",
+		"--load-plugins",
+		"pylint_odoo"
+	],
+	"python.formatting.provider": "black",
+	"python.formatting.blackArgs": [
+		"--skip-string-normalization"
+	],
+	"files.exclude": {
+		"**/*.cache": true,
+		"**/*.idea": true,
+		"**/*.pyc": true,
+		"**/*__pycache__": true,
+		"**/.DS_Store": true,
+		"**/.git": true,
+		"**/.hg": true,
+		"**/.svn": true,
+		"**/CVS": true
+	},
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true,
+		"**/.git/*/**": true
+	},
+	"xmlTools.enforcePrettySelfClosingTagOnFormat": true,
+	"xmlTools.enableXmlTreeViewCursorSync": true,
+	"python.analysis.extraPaths": [
+		"/odoo/dist/addons",
+		"/odoo/dist/odoo/addons",
+		"/odoo/addons-extra",
+		"/odoo/addons-custom"
+	],
+
+	"python.defaultInterpreterPath": "usr/local/bin/python"
+}

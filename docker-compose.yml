@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+
+  odoo-web:
+    container_name: odoo-web
+    build:
+      context: .
+      args:
+        ODOO_USER: ${ODOO_USER}
+        ODOO_VERSION: ${ODOO_VERSION}
+        ODOO_RELEASE: ${ODOO_RELEASE}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_DB: ${POSTGRES_DB}
+        DB_PORT_5432_TCP_ADDR: ${DB_PORT_5432_TCP_ADDR}
+        WITHOUT_DEMO: ${WITHOUT_DEMO}
+    depends_on:
+      - odoo-db
+    ports:
+      - "127.0.0.1:${HTTP_PORT_HOST}:8069"
+      - "127.0.0.1:${HTTPS_PORT_HOST}:8071"
+      - "127.0.0.1:${DEBUGPY_PORT_HOST}:3000"
+    extra_hosts:
+      - "${EXTRA_HOST}:127.0.0.1"
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${HOST_CUSTOM_ADDONS}:/odoo/addons-custom:delegated
+      - ${HOST_EXTRA_ADDONS}:/odoo/addons-extra:delegated
+      - ./.devcontainer/.vscode:/odoo/.vscode
+      - odoo-web-data-devcontainer:/odoo/data
+    networks:
+      odoonet:
+        aliases:
+          - ${EXTRA_HOST}
+    env_file: .env
+
+  odoo-db:
+    image: postgres:${PSQL_VERSION}
+    container_name: odoo-db
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT_HOST}:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - odoo-db-data-devcontainer:/var/lib/postgresql/data
+    networks:
+      odoonet:
+        aliases:
+          - postgres-host
+          - ${DB_PORT_5432_TCP_ADDR}
+    extra_hosts:
+      - "postgres-host:127.0.0.1"
+    env_file: .env
+  
+volumes:
+  odoo-web-data-devcontainer:
+  odoo-db-data-devcontainer:
+
+
+networks:
+  odoonet:
+    driver: bridge

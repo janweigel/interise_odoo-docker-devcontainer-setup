@@ -1,0 +1,13 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Odoo: Attach",
+			"type": "python",
+			"request": "attach",
+			"port": 8069,
+			"debugServer": 3000,
+			"host": "localhost",
+		}
+	]
+}
