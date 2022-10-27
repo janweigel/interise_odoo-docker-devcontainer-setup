@@ -1,22 +1,21 @@
 # Odoo Docker Image by Interise 
 
-## Features:
-- Python Debuggin with debugpy and a custom attach-hook
-- Option to Install in Visual Studio Code Remote Container
-- Bind mount external addons folders as Volumes in the container
+### Features:
+- Option to Install in Visual Studio Code Remote Container (recommended)
+- Python debugging with debugpy and a custom attach-hook
+- Mount external addons folders as Volumes in the container
 - Install Odoo from github source
 
 # Setup
 
-## Requirements
-To use this docker compose file you should comply with this requirements:
-
+### Requirements
+- Install [Visual Studio Code](https://code.visualstudio.com/download)
 - Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows/Mac or [Docker Engine](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce) for Linux  
 - Install [docker-compose](https://docs.docker.com/compose/install/) (This is installed by default on Windows and Mac with Docker installation)
 
-## Environment
-- Check the .env File and set the desired values and direcotries
-- The predefined ports are non-default ports to be exposed externally to prevent collisions with existing containers for other Odoo Installations.
+### Environment
+- Check the `.env` File and set the desired values and direcotries
+- In the `.env` file non-default ports are setup to be exposed externally to prevent collisions with existing containers for other Odoo Installations.
 - By default the following external directories are mounted in the container:
   - `../addons-custom`
   - `../addons-extra`
@@ -31,13 +30,15 @@ To use this docker compose file you should comply with this requirements:
 docker-compose up -d --build
 ```
 
-In the `.env` filenon-default ports are used to be exposed externally to prevent collisions with existing containers for other Odoo Installations.
 
 # Debugging
-## When installed in Dev Container:
+
+### When installed in Dev Container:
 - A working launch.json config is automatically installed in the Dev Container.
-## Debugging with VSCode using following launch.json:
-- This applies only if used as standalone docker container.
+
+### When installed as standalone Docker container:
+- You may want to setup your project as Multi Workspace and add your local folders for addons and odoo source as projects to the Workspace. 
+- Use this launch.json config and optionally adjust host and port to your settings in the `.env` file.
 
 ```json
 {
@@ -47,9 +48,23 @@ In the `.env` filenon-default ports are used to be exposed externally to prevent
 			"name": "Odoo: Attach",
 			"type": "python",
 			"request": "attach",
-			"debugServer": 3001,
 			"host": "localhost",
-		}
+			"debugServer": 3001,
+			"pathMappings": [
+				{
+					"localRoot": "/my/path/to/custom",
+					"remoteRoot": "/odoo/addons-custom"
+				},
+				{
+					"localRoot": "/my/path/to/extra",
+					"remoteRoot": "/odoo/addons-extra"
+				},
+				{
+					"localRoot": "/my/path/to/odoo-source",
+					"remoteRoot": "/odoo/dist"
+				}
+			]
+    	}
 	]
 }
 ```
