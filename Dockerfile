@@ -134,10 +134,11 @@ RUN pip3 install --prefix=/usr/local --no-cache-dir --upgrade --requirement http
     && apt-get autopurge -yqq \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
-RUN mkdir -p /odoo
+RUN mkdir -p /odoo \
+	&& mkdir -p /odoo/startup
 
 # Copy entrypoint script and Odoo configuration file
-COPY ./startup/entrypoint.sh /odoo/startup
+COPY ./resources/entrypoint.sh /odoo/startup/
 RUN chmod +x /odoo/startup/entrypoint.sh
 COPY ./resources/odoo.conf /odoo
 
@@ -150,8 +151,6 @@ RUN mkdir -p /odoo/addons-custom \
 	&& mkdir -p /odoo/.vscode
 	
 RUN chown -R ${ODOO_USER}:${ODOO_USER} /odoo
-# RUN usermod ${ODOO_USER} --home /odoo/dist
-
 
 VOLUME ["/odoo/data", "/odoo/addons-extra", "/odoo/addons-custom"]
 
@@ -164,13 +163,14 @@ RUN git clone --depth 100 -b ${ODOO_VERSION} https://github.com/odoo/odoo.git /o
 RUN set -x; \
         echo "import debugpy" >> /odoo/dist/odoo/__init__.py \
         && echo "debugpy.listen(('0.0.0.0', 3000))" >> /odoo/dist/odoo/__init__.py
+# Uncomment this to make odoo stop and wait for a debugger to connect automatically
         # && echo "debugpy.wait_for_client()" >> /odoo/dist/odoo/__init__.py \
         # && echo "debugpy.breakpoint()" >> /odoo/dist/odoo/__init__.py
 
 # Set the default config file
 ENV ODOO_RC /odoo/odoo.conf
 
-COPY ./startup/wait-for-psql.py /odoo/startup/wait-for-psql.py
+COPY ./resources/wait-for-psql.py /odoo/startup/wait-for-psql.py
 RUN chmod +x /odoo/startup/wait-for-psql.py
 
 USER ${ODOO_USER}
