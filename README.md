@@ -24,6 +24,7 @@
 - To Install as Visual Studio Code Dev Container install Visual Studio Code and the [Remote Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 - Open the Folder in VsCode and hit F1 -> Dev Containers: Reopen in Container
 - To customize the Extensions which are preinstalled in the container you can edit the extensions section in the file `.devcontainer/devcontainer.json`
+- A set of recommended VsCode Extensions is defined in `.devcontainer/.vscodeeee/extensions.json` which you may want to install in the DevContainer.
 
 ## Setup as standalone Docker Container:
 ```shell
