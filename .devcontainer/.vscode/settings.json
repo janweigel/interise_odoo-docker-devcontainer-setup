@@ -8,7 +8,7 @@
 		"dist"
 	],
 	"git.confirmSync": true,
-	"git.repositoryScanMaxDepth": 2,
+	"git.repositoryScanMaxDepth": 4,
 
 	"sqltools.connections": [
 		{
@@ -71,5 +71,8 @@
 		"/odoo/addons-custom"
 	],
 
-	"python.defaultInterpreterPath": "usr/local/bin/python"
+	"python.defaultInterpreterPath": "usr/local/bin/python",
+	"explorer.compactFolders": false,
+	"python.analysis.typeCheckingMode": "off",
+	"esbonio.sphinx.confDir": ""
 }
