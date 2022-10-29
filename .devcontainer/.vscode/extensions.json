@@ -8,5 +8,8 @@
 		"oderwat.indent-rainbow",
 		"yzhang.markdown-all-in-one",
 		"chrmarti.regex",
+		"trond-snekvik.simple-rst",
+		"lextudio.restructuredtext",
+		"mrorz.language-gettext"
 	]
 }
